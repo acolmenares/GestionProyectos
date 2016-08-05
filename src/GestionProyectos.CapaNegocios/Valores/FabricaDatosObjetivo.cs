@@ -22,7 +22,13 @@ namespace GestionProyectos.CapaNegocios.Valores
                     {
                         Regional = regional.Key,
                         Nombre = municipio.Key,
-                        AniosMeses = municipio.GroupBy(per => vo.ConvertirEnAnioMes(per.FechaRadicacion)).Select(mes => new  AnioMesObjetivo
+                        AniosMesesRadicacion = municipio.GroupBy(per => vo.ConvertirEnAnioMes(per.FechaRadicacion)).Select(mes => new  AnioMesObjetivo
+                        {
+                            Regional = regional.Key,
+                            Municipio = municipio.Key,
+                            Nombre = mes.Key,
+                        }).OrderBy(x => x.Nombre).ToList(),
+                        AniosMesesAtencion= municipio.GroupBy(per => vo.ConvertirEnAnioMes(per.FechaAtencion)).Select(mes => new AnioMesObjetivo
                         {
                             Regional = regional.Key,
                             Municipio = municipio.Key,

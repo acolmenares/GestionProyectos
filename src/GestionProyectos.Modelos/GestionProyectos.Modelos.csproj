@@ -67,6 +67,7 @@
     <Compile Include="Entidades\Proyecto.cs" />
     <Compile Include="Entidades\Regional.cs" />
     <Compile Include="Entidades\SubTablas.cs" />
+    <Compile Include="Entidades\TablasRango.cs" />
     <Compile Include="Interfaces\IConIdDeclaracion.cs" />
     <Compile Include="Interfaces\IConstructorDeclaracionesEstados.cs" />
     <Compile Include="Interfaces\IConstructorObjetivoDosUno.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Interfaces\IFabricaReglas.cs" />
     <Compile Include="Interfaces\IFabricaTransformoFechas.cs" />
     <Compile Include="Interfaces\IGestorObjetivoDosUno.cs" />
+    <Compile Include="Interfaces\IGestorRango.cs" />
     <Compile Include="Interfaces\IQueryResponseFactory.cs" />
     <Compile Include="Interfaces\IReglasObjetivoDosUno.cs" />
     <Compile Include="Interfaces\IRepoHerramienta.cs" />
@@ -89,7 +91,10 @@
     <Compile Include="Interfaces\IRepositorio.Consultas.cs" />
     <Compile Include="Interfaces\IRepositorio.cs" />
     <Compile Include="Interfaces\IEntidad.cs" />
+    <Compile Include="Peticiones\BorrarResponse.cs" />
+    <Compile Include="Peticiones\CrearResponse.cs" />
     <Compile Include="Peticiones\Declaraciones\QueryDeclaracionesEstados.cs" />
+    <Compile Include="Peticiones\Objetivos\Rango.cs" />
     <Compile Include="Peticiones\Objetivos\ObjetivoDosUno.cs" />
     <Compile Include="Peticiones\Proyectos\ActualizarProyecto.cs" />
     <Compile Include="Peticiones\Proyectos\BorrarProyecto.cs" />

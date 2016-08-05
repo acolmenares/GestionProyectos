@@ -1,17 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using GestionProyectos.Modelos.Comun;
 using GestionProyectos.Modelos.Entidades;
 using GestionProyectos.Modelos.Interfaces;
 using ServiceStack.OrmLite;
-using ServiceStack.Web;
-using GestionProyectos.Modelos.Peticiones.Declaraciones;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using GestionProyectos.Modelos.Comun;
 
 namespace GestionProyectos.CAD
 {
-	public partial class RepositorioBD : IRepositorio
+    public partial class RepositorioBD : IRepositorio
 	{
         private const int MaxLengthForInValues= 2000;
 
@@ -48,11 +46,11 @@ namespace GestionProyectos.CAD
 
 
 
-        public List<Declaracion> ConsultarDeclaracion<T>(QueryDataDeclaracion<T> modelo)
+        public List<Declaracion> ConsultarDeclaracion(ITengoFechaRadicacionDesdeHasta modelo) 
         {
             var predicate = BuildPredicate(modelo);
             var qr = CrearSqlExpression<Declaracion>().Where(predicate);
-
+            
             var r = new List<Declaracion>();
             Execute(cn =>
             {
@@ -150,15 +148,22 @@ namespace GestionProyectos.CAD
             return qr;
         }
 
-        private static Expression<Func<Declaracion, bool>> BuildPredicate<T>(QueryDataDeclaracion<T> modelo)
+        private static Expression<Func<Declaracion, bool>> BuildPredicate(ITengoFechaRadicacionDesdeHasta modelo) 
         {
+            
             var predicate = PredicateBuilder.True<Declaracion>();
-           
+
             if (modelo.Fecha_RadicacionGreaterThanOrEqualTo.HasValue)
-                predicate = predicate.And(q => q.Fecha_Radicacion >= modelo.Fecha_RadicacionGreaterThanOrEqualTo);
+            {
+                var f1 = modelo.Fecha_RadicacionGreaterThanOrEqualTo.Value;
+                predicate = predicate.And(q => q.Fecha_Radicacion >= f1);
+            }
 
             if (modelo.Fecha_RadicacionLessThanOrEqualTo.HasValue)
-                predicate = predicate.And(q => q.Fecha_Radicacion <= modelo.Fecha_RadicacionLessThanOrEqualTo);
+            {
+                var f2 = modelo.Fecha_RadicacionLessThanOrEqualTo.Value;
+                predicate = predicate.And(q => q.Fecha_Radicacion <= f2);
+            }
             
             return predicate;
         }

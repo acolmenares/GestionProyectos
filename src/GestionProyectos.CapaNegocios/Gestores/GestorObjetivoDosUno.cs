@@ -24,9 +24,9 @@ namespace GestionProyectos.CapaNegocios.Gestores
                 Fecha_RadicacionLessThanOrEqualTo= query.Fecha_RadicacionLessThanOrEqualTo
             }, request);
                         
-            var dobjetivo = FbDatosObjectivos.DatosObjetivoDosUno(de.Results, TrasnformoFechas);
+            var dobjetivo = FbDatosObjectivos.DatosObjetivoDosUno(de.Results, TransformoFechas);
 
-            var data =FbContructores.ConstructorObjetivoDosUno(dobjetivo, ReglasObjetivo, TrasnformoFechas).Data;
+            var data =FbContructores.ConstructorObjetivoDosUno(dobjetivo, ReglasObjetivo, TransformoFechas).Data;
 
             var regionales = data.GroupBy(q => q.Regional).Select(regional => new
             {

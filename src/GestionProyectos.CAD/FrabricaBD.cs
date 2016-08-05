@@ -8,7 +8,7 @@ namespace GestionProyectos.CAD
 {
 	public class FabricaBD : IFabricaRepositorios
     {
-		public IDbConnectionFactory connectionFactory { get; set; }
+		public IDbConnectionFactory ConnectionFactory { get; set; }
 		
 
         public FabricaBD()
@@ -17,7 +17,7 @@ namespace GestionProyectos.CAD
 
         public IRepositorio Crear(bool crearTransaccion = false)
         {
-			return new RepositorioBD(connectionFactory,  crearTransaccion);
+			return new RepositorioBD(ConnectionFactory,  crearTransaccion);
         }
 
         public void Ejecutar(Action<IRepositorio> acciones, bool crearTransaccion = false)
@@ -28,7 +28,7 @@ namespace GestionProyectos.CAD
             }
         }
 
-        public T Ejecutar<T>(Func<IRepositorio, T> acciones, bool crearTransaccion = false) where T : IEntidad
+        public T Ejecutar<T>(Func<IRepositorio, T> acciones, bool crearTransaccion = false)// where T : IEntidad
         {
             var r = default(T);
             using (var rp = Crear(crearTransaccion))

@@ -25,7 +25,7 @@ namespace GestionProyectos.CapaNegocios.Valores
                 DatosObjetivo.Regionales.ForEach(regional => {
                     regional.Municipios.ForEach(municipio => {
                         
-                        municipio.AniosMeses.ForEach(animomes => {
+                        municipio.AniosMesesRadicacion.ForEach(animomes => {
                             Reglas.AnioMesObjetivo = animomes;
                             var objetivo = new ObejtivoDosUno();
                             objetivo.PopulateWith(Reglas);

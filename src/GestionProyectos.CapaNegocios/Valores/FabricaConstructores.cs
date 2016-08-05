@@ -15,22 +15,12 @@ namespace GestionProyectos.CapaNegocios.Valores
             return new ConstructorObjetivoDosUno() { DatosObjetivo = datos, Reglas = reglas, TransformoFechas = transformoFechas };
         }
 
-        public IConstructorDeclaracionesEstados ContructorDeclaracionesEstados(ILogicaValoresEstados logicaValoresEstados,
-            List<Declaracion> declaraciones,
-            List<Personas> personas, 
-            List<SubTablas> subtablas, 
-            List<PersonasContactos> personasContactos, 
-            List<DeclaracionEstados> declaracionEstados, 
-            List<Programacion> programacion)
+        public IConstructorDeclaracionesEstados ContructorDeclaracionesEstados(ILogicaValoresEstados logicaValoresEstados,TablasRango tablas)
         {
-            return new ConstructorDeclaracionesEstados {
-                LogicaValoresEstados=logicaValoresEstados,
-                Declaraciones= declaraciones,
-                Personas= personas,
-                SubTablas=subtablas,
-                PersonasContactos=personasContactos,
-                DeclaracionEstados=declaracionEstados,
-                Programacion=programacion
+            return new ConstructorDeclaracionesEstados
+            {
+                LogicaValoresEstados = logicaValoresEstados,
+                Tablas = tablas,
             };
         }
     }

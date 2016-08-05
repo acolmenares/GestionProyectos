@@ -1,5 +1,4 @@
 ﻿using GestionProyectos.Modelos.Entidades;
-using GestionProyectos.Modelos.Peticiones.Declaraciones;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -10,7 +9,7 @@ namespace GestionProyectos.Modelos.Interfaces
 	{        
         List<PersonasPorDeclaracion> ContarPersonasPorDeclaracion(IEnumerable<int> idsDeclaraciones);
 
-        List<Declaracion> ConsultarDeclaracion<T>(QueryDataDeclaracion<T> modelo);
+        List<Declaracion> ConsultarDeclaracion(ITengoFechaRadicacionDesdeHasta modelo) ;
 
         List<Personas> ConsultarPersonasDeclaracion(IEnumerable<int> idsDeclaraciones, string tipoPersona=null);
 

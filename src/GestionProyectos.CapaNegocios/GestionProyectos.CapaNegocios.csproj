@@ -53,6 +53,7 @@
     <Compile Include="Gestores\GestorDeclaracionesEstados.cs" />
     <Compile Include="Gestores\GestorObjetivoDosUno.cs" />
     <Compile Include="Gestores\GestorProyectos.cs" />
+    <Compile Include="Gestores\GestorRango.cs" />
     <Compile Include="Gestores\GestorRegionales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Gestores\Gestor.cs" />

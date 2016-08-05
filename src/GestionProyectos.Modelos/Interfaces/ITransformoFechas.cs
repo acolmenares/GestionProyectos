@@ -11,8 +11,32 @@ namespace GestionProyectos.Modelos.Interfaces
         string ConvertirEnAnioMes(DateTime? value);
         string ConvertirEnPeriodo(DateTime? value);
         string ConvertirEnNombreDeMes(DateTime? value);
-        string ConvertirEnLlave<T>(T query) where T : ITengoFechaRadicacionDesdeHasta;
-        string ConvertirEnURN<T>(T query) where T: ITengoFechaRadicacionDesdeHasta;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <returns>T.NameyyyyMMddyyyyMMdd</returns>
+        string ConvertirEnLlave<T>(ITengoFechaRadicacionDesdeHasta query);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <returns>urn:Lave</returns>
+        string ConvertirEnURN<T>(ITengoFechaRadicacionDesdeHasta query) ;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <returns>yyyyMMddyyyyMMdd</returns>
+        string ConvertirEnRango(ITengoFechaRadicacionDesdeHasta query) ;
+        string ConvertirLlaveEnRango(string llave);
+        string ConvertirLlaveEnT(string llave);
+        string EnAAAAMMDD(DateTime? value);
+        string ConvertirRangoEnPeriodo(string rango);
+        string ConvertirRangoEnAnioMes(string rango);
     }
 
     public interface ITengoFechaRadicacionDesdeHasta

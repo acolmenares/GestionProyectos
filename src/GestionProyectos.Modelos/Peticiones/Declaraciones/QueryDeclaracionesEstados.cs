@@ -14,7 +14,7 @@ namespace GestionProyectos.Modelos.Peticiones.Declaraciones
 
     public class QueryDeclaracionesEstados : QueryDataDeclaracion<DeclaracionesEstados>
     {
-        // poner aqui lo especifico si es necesario     para Filtrar DeclarcionesEstados
+        // poner aqui lo especifico si es necesario     para Filtrar DeclaracionesEstados
     }
 
     public class DeclaracionesEstados : DeclaracionBase

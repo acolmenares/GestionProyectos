@@ -7,11 +7,7 @@ namespace GestionProyectos.Modelos.Interfaces
 {
     public interface IFabricaContructores
     {
-        IConstructorDeclaracionesEstados ContructorDeclaracionesEstados(ILogicaValoresEstados logicaValoresEstados,
-            List<Declaracion> declaraciones, List<Personas> personas, List<SubTablas> subtablas,
-            List<PersonasContactos> personasContactos,
-            List<DeclaracionEstados> declaracionEstados,
-            List<Programacion> programacion);
+        IConstructorDeclaracionesEstados ContructorDeclaracionesEstados(ILogicaValoresEstados logicaValoresEstados,TablasRango tablas  );
 
         IConstructorObjetivoDosUno ConstructorObjetivoDosUno(DatosObjetivoDosUno datosObjetivo,
             IReglasObjetivoDosUno reglas, ITransformoFechas transformoFechas);

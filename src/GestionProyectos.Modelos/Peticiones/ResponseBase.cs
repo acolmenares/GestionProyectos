@@ -19,4 +19,21 @@ namespace GestionProyectos.Modelos.Peticiones
 
         public ResponseStatus ResponseStatus { get; set; }
     }
+
+    public abstract class Consultar<T> : IReturn<QueryResponse<T>>, IReturn
+    {
+
+    }
+
+    public abstract class Crear : IReturn<CrearResponse>, IReturn
+    {
+
+    }
+       
+
+    public abstract class Borrar : IReturn<BorrarResponse>, IReturn
+    {
+
+    }
+
 }

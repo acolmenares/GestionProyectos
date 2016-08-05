@@ -10,7 +10,7 @@ namespace GestionProyectos.Modelos.Interfaces
     {
         IRepositorio Crear(bool crearTransaccion = false);
         void Ejecutar(Action<IRepositorio> conexion, bool crearTransaccion = false);
-        T Ejecutar<T>(Func<IRepositorio, T> conexion, bool crearTransaccion = false) where T : IEntidad;
+        T Ejecutar<T>(Func<IRepositorio, T> conexion, bool crearTransaccion = false); //where T : IEntidad;
         //void Ejecutar(Action<IRepositorio> p);
     }
 }

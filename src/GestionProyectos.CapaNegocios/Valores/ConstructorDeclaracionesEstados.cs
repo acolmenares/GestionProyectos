@@ -10,31 +10,20 @@ namespace GestionProyectos.CapaNegocios.Valores
     {
         public ILogicaValoresEstados LogicaValoresEstados  { get; set; }
 
-        public List<Declaracion> Declaraciones { get; set; }
-
-        public List<Personas> Personas { get; set; }
-        public List<SubTablas> SubTablas { get; set; }
-        public List<PersonasContactos> PersonasContactos { get; set; }
-        public List<DeclaracionEstados> DeclaracionEstados { get; set; }
-        public List<Programacion> Programacion { get; set; }
-        
+        public TablasRango Tablas { get; set; }
+                
         public ConstructorDeclaracionesEstados()
         {
-            Declaraciones = new List<Declaracion>();
-            Personas = new List<Personas>();
-            SubTablas = new List<SubTablas>();
-            PersonasContactos = new List<PersonasContactos>();
-            Programacion = new List<Programacion>();
+            Tablas = new TablasRango();
         }
 
         public List<DeclaracionesEstados> Data
         {
             get
-            {
-                
+            {                
                 var r = new List<DeclaracionesEstados>();
-                Declaraciones.ForEach(declaracion => {
-                    var persona = LogicaValoresEstados.PersonaDeclarante(Personas, declaracion);
+                Tablas.Declaracion.ForEach(declaracion => {
+                    var persona = LogicaValoresEstados.PersonaDeclarante(Tablas.Personas, declaracion);
                     if (persona != default(Personas))
                     {
                         DeclaracionesEstados declaracionEstado = Convertir(LogicaValoresEstados, declaracion, persona);
@@ -51,54 +40,53 @@ namespace GestionProyectos.CapaNegocios.Valores
             PopularCon(r, declaracion);
             PopularCon(r, persona);
             PopularCon(r, declaracion, persona, fv) ;
-
             return r;
         }
 
         private void PopularCon(DeclaracionesEstados r, Declaracion declaracion, Personas persona, ILogicaValoresEstados fv )
         {
-            r.Grupo = fv.ObtenerGrupo(SubTablas, declaracion);
-            r.Fuente = fv.ObtenerFuente(SubTablas, declaracion);
-            r.Regional = fv.ObtenerRegional(SubTablas, declaracion);
-            r.MunicipioAtencion = fv.ObtenerMunicipioAtencion(SubTablas, declaracion);
-            r.TipoDeclarante = fv.ObtenerTipoDeclarante(SubTablas, declaracion);
-            r.EnLinea = fv.ObtenerEnLinea(SubTablas, declaracion);
+            r.Grupo = fv.ObtenerGrupo(Tablas.SubTablas, declaracion);
+            r.Fuente = fv.ObtenerFuente(Tablas.SubTablas, declaracion);
+            r.Regional = fv.ObtenerRegional(Tablas.SubTablas, declaracion);
+            r.MunicipioAtencion = fv.ObtenerMunicipioAtencion(Tablas.SubTablas, declaracion);
+            r.TipoDeclarante = fv.ObtenerTipoDeclarante(Tablas.SubTablas, declaracion);
+            r.EnLinea = fv.ObtenerEnLinea(Tablas.SubTablas, declaracion);
 
             r.TFE = fv.ObtenerTFE(declaracion);
-            r.TFR = fv.ObtenerTFR(Personas, declaracion);
+            r.TFR = fv.ObtenerTFR(Tablas.Personas, declaracion);
 
-            r.TI = fv.ObtenerTipoIdentificacion(SubTablas, persona);
+            r.TI = fv.ObtenerTipoIdentificacion(Tablas.SubTablas, persona);
 
-            r.Celular = fv.ObtenerCelular(PersonasContactos, persona);
-            r.Telefono = fv.ObtenerTelefono(PersonasContactos, persona);
-            r.Barrio = fv.ObtenerBarrio(PersonasContactos, persona);
-            r.Direccion = fv.ObtenerDireccion(PersonasContactos, persona);
+            r.Celular = fv.ObtenerCelular(Tablas.PersonasContactos, persona);
+            r.Telefono = fv.ObtenerTelefono(Tablas.PersonasContactos, persona);
+            r.Barrio = fv.ObtenerBarrio(Tablas.PersonasContactos, persona);
+            r.Direccion = fv.ObtenerDireccion(Tablas.PersonasContactos, persona);
 
-            var estado = fv.ObtenerEstadoElegibilidad(DeclaracionEstados, declaracion);
-            r.Elegibilidad = fv.ObtenerDescripcionEstado(SubTablas, estado);
+            var estado = fv.ObtenerEstadoElegibilidad(Tablas.DeclaracionEstados, declaracion);
+            r.Elegibilidad = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaElegibilidad = estado.Fecha;
 
-            estado = fv.ObtenerEstadoContactado(DeclaracionEstados, declaracion);
-            r.Contactado = fv.ObtenerDescripcionEstado(SubTablas, estado);
+            estado = fv.ObtenerEstadoContactado(Tablas.DeclaracionEstados, declaracion);
+            r.Contactado = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaContactado = estado.Fecha;
 
-            estado = fv.ObtenerEstadoProgramado(DeclaracionEstados, declaracion);
-            r.Programado = fv.ObtenerDescripcionEstado(SubTablas, estado);
+            estado = fv.ObtenerEstadoProgramado(Tablas.DeclaracionEstados, declaracion);
+            r.Programado = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaProgramado = estado.Fecha;
 
-            estado = fv.ObtenerEstadoReprogramado(DeclaracionEstados, declaracion);
-            r.Reprogramado = fv.ObtenerDescripcionEstado(SubTablas, estado);
+            estado = fv.ObtenerEstadoReprogramado(Tablas.DeclaracionEstados, declaracion);
+            r.Reprogramado = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaReprogramado = estado.Fecha;
 
-            r.Atendido = fv.ObtenerAtendido(SubTablas, declaracion);
-            r.MotivoNoAtencion = fv.ObtenerMotivoNoAtencion(SubTablas, declaracion);
+            r.Atendido = fv.ObtenerAtendido(Tablas.SubTablas, declaracion);
+            r.MotivoNoAtencion = fv.ObtenerMotivoNoAtencion(Tablas.SubTablas, declaracion);
             r.MotivoNoAtencionId = declaracion.Id_Motivo_Noatender;
 
-            r.TipoReprogramacion = fv.ObtenerTipoReprogramacion(SubTablas, Programacion, DeclaracionEstados, declaracion);
+            r.TipoReprogramacion = fv.ObtenerTipoReprogramacion(Tablas.SubTablas, Tablas.Programacion, Tablas.DeclaracionEstados, declaracion);
 
-            estado= fv.ObtenerEstadoSegundaEntrega(SubTablas, Programacion, DeclaracionEstados, declaracion);
+            estado= fv.ObtenerEstadoSegundaEntrega(Tablas.SubTablas, Tablas.Programacion, Tablas.DeclaracionEstados, declaracion);
             r.FechaSegundaEntrega = estado.Fecha;
-            r.AsistioSegundaEntrega = fv.ObtenerDescripcion(SubTablas, estado.Id_Asistio);
+            r.AsistioSegundaEntrega = fv.ObtenerDescripcion(Tablas.SubTablas, estado.Id_Asistio);
 
             //r.ProgramadoQueNoAsistio= fv.ProgramadoQueNoAsistio(SubTablas, declaracion);
         }

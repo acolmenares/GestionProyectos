@@ -64,12 +64,12 @@ namespace GestionProyectos.WebHost
 
 			var appSettings = new AppSettings();
 
-            var dbfactory = SQLConnectionFactory(appSettings); 
+            var connectionFactory = SQLConnectionFactory(appSettings); 
             //var dbfactory = SqliteConnectionFactory(); 
             //MySqlConnectionFactory(appSettings);
-			CrearTablas(dbfactory);
+			CrearTablas(connectionFactory);
 
-            container.Register<IDbConnectionFactory>(dbfactory);
+            container.Register<IDbConnectionFactory>(connectionFactory);
             container.RegisterAs<FabricaBD, IFabricaRepositorios>();
 
             container.RegisterAs<QueryResponseFactory, IQueryResponseFactory>().ReusedWithin(ReuseScope.None); // el mismo scope de AutoDataQuery
@@ -90,6 +90,7 @@ namespace GestionProyectos.WebHost
 
             container.RegisterAs<GestorDeclaracionesEstados, IGestorDeclaracionesEstados>(); //.ReusedWithin(ReuseScope.Request);
             container.RegisterAs<GestorObjetivoDosUno, IGestorObjetivoDosUno>();
+            container.RegisterAs<GestorRango, IGestorRango>();
 
             container.Register<ICacheClient>(new MemoryCacheClient { FlushOnDispose = false });
 

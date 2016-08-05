@@ -5,7 +5,7 @@ using ServiceStack;
 
 namespace GestionProyectos.Modelos.Peticiones.Personas
 {
-	public class ConsultarPersonas : IReturn<CrearPersonaResponse>
+	public class ConsultarPersonas : IReturn<ConsultarPersonasResponse>
 	{
 		public ConsultarPersonas()
 		{
