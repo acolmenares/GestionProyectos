@@ -70,7 +70,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             r.Contactado = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaContactado = estado.Fecha;
 
-            estado = fv.ObtenerEstadoProgramado(Tablas.DeclaracionEstados, declaracion);
+            estado = fv.ObtenerEstadoProgramado(Tablas.SubTablas, Tablas.Programacion, Tablas.DeclaracionEstados, declaracion);
             r.Programado = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
             r.FechaProgramado = estado.Fecha;
 

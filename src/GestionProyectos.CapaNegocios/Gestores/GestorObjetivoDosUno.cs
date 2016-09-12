@@ -11,13 +11,13 @@ namespace GestionProyectos.CapaNegocios.Gestores
 {
     public class GestorObjetivoDosUno : GestorBase, IGestorObjetivoDosUno
     {
-        public IGestorDeclaracionesEstados GestorDE { get; set; }
+        public IGestorDeclaracionesEstados GestorDeclaracionesEstados { get; set; }
         public IReglasObjetivoDosUno ReglasObjetivo { get; set; }
 
 
         public QueryResponse<ObejtivoDosUno> Consultar(QueryObjetivoDosUno query, IRequest request)
         {
-            var de = GestorDE.Consultar(new QueryDeclaracionesEstados
+            var de = GestorDeclaracionesEstados.Consultar(new QueryDeclaracionesEstados
             {
                 IgnoreMaxLimit=true,
                 Fecha_RadicacionGreaterThanOrEqualTo= query.Fecha_RadicacionGreaterThanOrEqualTo,

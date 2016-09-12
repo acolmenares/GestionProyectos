@@ -85,6 +85,7 @@ namespace GestionProyectos.CAD
             CrearRangoImp(rango, tablas.Declaracion, sololectura: true);
             CrearRangoImp(rango, tablas.DeclaracionEstados, sololectura: true);
             CrearRangoImp(rango, tablas.Personas, sololectura: true);
+            CrearRangoImp(rango, tablas.PersonasContactos, sololectura: true);
             CrearRangoImp(rango, tablas.Programacion, sololectura: true);
 
             CrearMeta(rango, tablas);
