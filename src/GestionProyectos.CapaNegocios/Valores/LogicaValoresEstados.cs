@@ -17,6 +17,18 @@ namespace GestionProyectos.CapaNegocios.Valores
         private readonly int valorNo = 20;
         //private readonly int valorSi = 19;
 
+        private readonly int programadoQueNoAsistioId = 1117;
+
+        public virtual string EsElegible(List<DeclaracionEstados> estados, List<SubTablas> subtablas, Declaracion declaracion)
+        {
+            var estado = ObtenerDeclaracionEstado(estados, declaracion, elegible);
+
+            var descripcion= ObtenerDescripcionEstado(subtablas, estado);
+
+            return declaracion.Id_Motivo_Noatender.HasValue && declaracion.Id_Motivo_Noatender != programadoQueNoAsistioId ? "No" : descripcion;
+        }
+
+
 
         public virtual DeclaracionEstados ObtenerEstadoElegibilidad(List<DeclaracionEstados> estados, Declaracion declaracion)
         {
@@ -65,14 +77,18 @@ namespace GestionProyectos.CapaNegocios.Valores
             return
             declaracionEstados.Where(q => q.Id_Declaracion == declaracion.Id
                                       && (q.Id_Tipo_Estado == programado || q.Id_Tipo_Estado == reprogramado))
-                                      .Join(programacion, a => (object)new { Programa = a.Id_Programa, TipoEntrega = tipoEntrega }, b => (object)new { Programa = b.Id, TipoEntreg = b.Id_TipoEntrega }, (a, b) => new DeclaracionEstados
+                                       .Join(programacion.Where(x => x.Id_TipoEntrega == tipoEntrega), a => a.Id_Programa, b => b.Id, (a, b) => new DeclaracionEstados
+                                      //.Join( programacion, a => (object)new { Programa = a.Id_Programa, TipoEntrega = tipoEntrega }, b => (object)new { Programa = b.Id, TipoEntrega = b.Id_TipoEntrega }, (a, b) => new DeclaracionEstados
                                       {
-                                          Id = a.Id,
-                                          Fecha = b.Fecha,
-                                          Id_Asistio = a.Id_Asistio,
-                                          Id_Declaracion = a.Id_Declaracion
+                                           Id = a.Id,
+                                           Fecha = b.Fecha,
+                                           Id_Declaracion = a.Id_Declaracion,
+                                           Id_Tipo_Estado = a.Id_Tipo_Estado,
+                                           Id_Como_Estado = a.Id_Como_Estado,
+                                           Id_Programa = a.Id_Programa,
+                                           Id_Asistio = a.Id_Asistio
 
-                                      })
+                                       })
                                       .OrderByDescending(f => f.Fecha).ThenByDescending(f => f.Id).Take(1).SingleOrDefault() ?? new DeclaracionEstados();
         }
     }

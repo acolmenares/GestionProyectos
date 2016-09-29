@@ -206,7 +206,7 @@ namespace GestionProyectos.CapaNegocios.Valores
         {
             get
             {
-                return estados.Where(f => !Atendido(f) && f.MotivoNoAtencionId.HasValue && f.MotivoNoAtencionId!=ProgramadoQueNoAsistioId )
+                return estados.Where(f => !Atendido(f) && NoEsProgramadoQueNoAsistio(f) )
                     .GroupBy(f => f.MotivoNoAtencion)
                     .Select(x => new MotivoExclusion { Id=x.First().MotivoNoAtencionId.Value,  Motivo = x.Key, Cantidad = x.Count() }).ToList();
             }
@@ -317,7 +317,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             get
             {
                 return estados.Count(q => !Atendido(q) 
-                                       && q.Elegibilidad=="Si" 
+                                       && EsElegible(q) //q.Elegibilidad=="Si" 
                                        && q.Contactado=="Si" 
                                        && q.Programado!="Si");
             }
@@ -328,7 +328,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             get
             {
                 return estados.Count(q => !Atendido(q) 
-                                       && q.Elegibilidad == "Si" 
+                                       && EsElegible(q)  //q.Elegibilidad == "Si" 
                                        && q.Contactado != "Si" );
             }
         }
@@ -338,7 +338,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             get
             {
                 return estados.Count(q => !Atendido(q) 
-                                       && q.Elegibilidad == "Si" 
+                                       && EsElegible(q) //q.Elegibilidad == "Si" 
                                        && q.Contactado == "Si" 
                                        && q.Programado == "Si"  
                                        && AnioMes(q.FechaProgramado)!= aniomes.Nombre);
@@ -350,7 +350,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             get
             {
                 return estados.Count(q => !Atendido(q)
-                                       && q.Elegibilidad == "Si"
+                                       && EsElegible(q) //q.Elegibilidad == "Si"
                                        && q.Contactado == "Si"
                                        && q.Programado == "Si"
                                        && q.MotivoNoAtencionId == ProgramadoQueNoAsistioId);
@@ -453,6 +453,19 @@ namespace GestionProyectos.CapaNegocios.Valores
         private string AnioMes(DateTime? fecha)
         {
             return TransformoFechas.ConvertirEnAnioMes(fecha);
+        }
+
+        // Para corregir las primeras consultas de Junio/Julio  2016 que pueden traer mal el valor de Elegibiidad cuando quedo Si 
+        // pero tienen un motivo de atención diferente a Programado que no asistio.
+        // en ese caso debería venir No. 
+        private bool EsElegible(DeclaracionesEstados dato)
+        {
+            return NoEsProgramadoQueNoAsistio(dato) ? false : dato.Elegibilidad == "Si";
+        }
+
+        private bool NoEsProgramadoQueNoAsistio(DeclaracionesEstados dato)
+        {
+            return dato.MotivoNoAtencionId.HasValue && dato.MotivoNoAtencionId != ProgramadoQueNoAsistioId;
         }
 
 

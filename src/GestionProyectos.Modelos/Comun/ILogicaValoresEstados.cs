@@ -10,6 +10,7 @@ namespace GestionProyectos.Modelos.Comun
     public interface ILogicaValoresEstados:ILogicaValoresComun
 
     {
+        string EsElegible(List<DeclaracionEstados> estados, List<SubTablas> subtablas, Declaracion declaracion);
         DeclaracionEstados ObtenerEstadoElegibilidad(List<DeclaracionEstados> estados, Declaracion declaracion);
         DeclaracionEstados ObtenerEstadoContactado(List<DeclaracionEstados> estados, Declaracion declaracion);
         DeclaracionEstados ObtenerEstadoProgramado(List<SubTablas> subTablas, List<Programacion> programacion, List<DeclaracionEstados> declaracionEstados, Declaracion declaracion);

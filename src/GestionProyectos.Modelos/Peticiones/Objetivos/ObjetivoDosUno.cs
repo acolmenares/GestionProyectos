@@ -135,7 +135,7 @@ namespace GestionProyectos.Modelos.Peticiones.Objetivos
     {
         public string Regional { get; set; }
         public string Municipio { get; set; }
-        public string Nombre { get; set; }
+       public string Nombre { get; set; }
     }
 
 

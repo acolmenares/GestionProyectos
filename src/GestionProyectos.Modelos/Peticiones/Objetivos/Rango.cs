@@ -23,7 +23,7 @@ namespace GestionProyectos.Modelos.Peticiones.Objetivos
     }
 
 
-    public class Rango
+    public class Rango: ITengoFechaRadicacionDesdeHasta
     {
         /// <summary>
         /// yyyyMMddyyyyMMdd DesdeHasta
@@ -42,7 +42,11 @@ namespace GestionProyectos.Modelos.Peticiones.Objetivos
         public List<string> Municipios { get; set; }
 
         public string Texto { get { return string.Format("{0} {1}", Periodo, AnioMes); } }
- 
+
+        public DateTime? Fecha_RadicacionGreaterThanOrEqualTo { get; set; }
+
+        public DateTime? Fecha_RadicacionLessThanOrEqualTo { get; set; }
+
     }
    
 }

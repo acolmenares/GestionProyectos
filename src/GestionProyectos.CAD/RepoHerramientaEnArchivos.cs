@@ -69,8 +69,9 @@ namespace GestionProyectos.CAD
         }
 
         
-        public void CrearRango(string rango, Func<TablasRango> tablasFunc)
+        public void CrearRango(ITengoFechaRadicacionDesdeHasta query, Func<TablasRango> tablasFunc)
         {
+            var rango = TransformoFechas.ConvertirEnRango(query);
             var _dirrango = new DirectoryInfo(PathUtils.CombinePaths(_dirraiz.FullName, rango));
             if ( _dirrango.Exists)
             {
@@ -88,10 +89,10 @@ namespace GestionProyectos.CAD
             CrearRangoImp(rango, tablas.PersonasContactos, sololectura: true);
             CrearRangoImp(rango, tablas.Programacion, sololectura: true);
 
-            CrearMeta(rango, tablas);
+            CrearMeta(rango, tablas, query);
         }
 
-        private void CrearMeta(string rango, TablasRango tablas)
+        private void CrearMeta(string rango, TablasRango tablas, ITengoFechaRadicacionDesdeHasta query)
         {
             var regionales = tablas.Declaracion.GroupBy(r => r.Id_Regional).Select(reg => new RegionalObjetivo
             {
@@ -126,7 +127,9 @@ namespace GestionProyectos.CAD
                 Municipios = municipios,
                 Nombre= rango,
                 Periodo= TransformoFechas.ConvertirRangoEnPeriodo(rango),
-                AnioMes= TransformoFechas.ConvertirRangoEnAnioMes(rango)
+                AnioMes= TransformoFechas.ConvertirRangoEnAnioMes(rango),
+                Fecha_RadicacionGreaterThanOrEqualTo= query.Fecha_RadicacionGreaterThanOrEqualTo,
+                Fecha_RadicacionLessThanOrEqualTo= query.Fecha_RadicacionLessThanOrEqualTo
             };
 
 

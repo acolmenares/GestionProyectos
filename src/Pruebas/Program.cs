@@ -25,8 +25,8 @@ namespace Pruebas
             Console.WriteLine(type.Name);
 
 
-            //PruebaLeerArchivoDeclaracionesEstadosJson();
-            ProbarHerramientaEnArchivos();
+            PruebaLeerArchivoDeclaracionesEstadosJson();
+            //ProbarHerramientaEnArchivos();
 
 
             Console.WriteLine("fin");
@@ -41,13 +41,13 @@ namespace Pruebas
 
             var crearRango = new CrearRango() {
                 Fecha_RadicacionGreaterThanOrEqualTo = new DateTime(2015, 10, 01),
-                Fecha_RadicacionLessThanOrEqualTo = new DateTime(2016, 06, 30),
+                Fecha_RadicacionLessThanOrEqualTo = new DateTime(2016, 08, 31),
             };
 
             var rango = tf.ConvertirEnRango(crearRango);
             var tablasRango = new TablasRango();
 
-            rh.CrearRango(rango, ()=>tablasRango);
+            rh.CrearRango(crearRango, ()=>tablasRango);
 
             var rangos = rh.ConsultarRango();
 
@@ -71,7 +71,7 @@ namespace Pruebas
                 tablasRango.PersonasContactos = rp.ConsultarPersonasContactos(idsDeclaraciones);
             });
 
-            rh.CrearRango(rango, () => factoryDb.Ejecutar(rp =>
+            rh.CrearRango(crearRango, () => factoryDb.Ejecutar(rp =>
             {
                 tablasRango.Declaracion = rp.ConsultarDeclaracion(crearRango);
                 var idsDeclaraciones = tablasRango.Declaracion.ConvertAll(q => q.Id);
@@ -114,9 +114,10 @@ namespace Pruebas
 
         private static void PruebaLeerArchivoDeclaracionesEstadosJson()
         {
-            var de = ReadFromFile<QueryResponse<DeclaracionesEstados>>("QueryDeclaracionesEstados.json").Results;
-            // .Where(q => q.MunicipioAtencion == "Florencia" && q.FechaRadicacion >= new DateTime(2016, 6, 1)
-            // ).ToList(); // && q.Id >= 49368).ToList();
+            var de = ReadFromFile<QueryResponse<DeclaracionesEstados>>("QueryDeclaracionesEstados.json").Results
+             .Where(q => q.MunicipioAtencion == "Florencia" && q.FechaRadicacion >= new DateTime(2016, 8, 1)
+             && !q.FechaAtencion.HasValue && q.Elegibilidad=="Si"
+             ).ToList(); // && q.Id >= 49368).ToList();
 
             var tf = new FabricaTransformoFechas().TransformoFechas();
             var datosObjetivo = new FabricaDatosObjetivos().DatosObjetivoDosUno(de, tf);
@@ -132,7 +133,7 @@ namespace Pruebas
                     PadLeft(dato.AtendidosPrimeraEntregaEnElMesDeRadicacion),
                     PadLeft(dato.AtendidosPrimeraEntregaRadicadosEnMesesAnteriores));
 
-                if (dato.Municipio == "Florencia" && dato.Mes == "Junio")
+                if (dato.Municipio == "Florencia" && dato.Mes == "Agosto")
                 {
                     dato.MotivosExclusion.ForEach(m =>
                     {
@@ -168,8 +169,8 @@ namespace Pruebas
 
             datosObjetivo.Datos
                 .Where(q => q.MunicipioAtencion == "Florencia"
-                         && q.FechaRadicacion >= new DateTime(2016, 6, 1)
-                         && q.FechaRadicacion <= new DateTime(2016, 6, 30)
+                         && q.FechaRadicacion >= new DateTime(2016, 8, 1)
+                         && q.FechaRadicacion <= new DateTime(2016, 8, 31)
                          && q.MotivoNoAtencionId == 377
                          )
                 .ToList().ForEach(d =>
@@ -197,6 +198,7 @@ namespace Pruebas
         static T ReadFromFile<T>(string fileName)
         {
             var file = PathUtils.CombinePaths("~", "App_Data", fileName).MapHostAbsolutePath();
+            Console.WriteLine("leyendo {0}", file);
             using (var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read))
             {
                 var c = JsonSerializer.DeserializeFromStream<T>(fileStream);

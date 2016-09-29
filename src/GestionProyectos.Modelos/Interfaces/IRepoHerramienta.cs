@@ -15,7 +15,7 @@ namespace GestionProyectos.Modelos.Interfaces
 
         //List<Declaracion> ConsultarDeclaraciones<T>(QueryDataDeclaracion<T> modelo, Func<List<Declaracion>> p, List<SubTablas> subtablas, bool crearArchivoDeclaraciones=false);
 
-        void CrearRango(string rango, Func<TablasRango> tablasFunc);
+        void CrearRango(ITengoFechaRadicacionDesdeHasta rango, Func<TablasRango> tablasFunc);
 
         List<Rango> ConsultarRango();
 

@@ -3,6 +3,7 @@ using GestionProyectos.Modelos.Entidades;
 using GestionProyectos.Modelos.Interfaces;
 using GestionProyectos.Modelos.Peticiones.Declaraciones;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GestionProyectos.CapaNegocios.Valores
 {
@@ -63,7 +64,7 @@ namespace GestionProyectos.CapaNegocios.Valores
             r.Direccion = fv.ObtenerDireccion(Tablas.PersonasContactos, persona);
 
             var estado = fv.ObtenerEstadoElegibilidad(Tablas.DeclaracionEstados, declaracion);
-            r.Elegibilidad = fv.ObtenerDescripcionEstado(Tablas.SubTablas, estado);
+            r.Elegibilidad = fv.EsElegible(Tablas.DeclaracionEstados, Tablas.SubTablas, declaracion);
             r.FechaElegibilidad = estado.Fecha;
 
             estado = fv.ObtenerEstadoContactado(Tablas.DeclaracionEstados, declaracion);

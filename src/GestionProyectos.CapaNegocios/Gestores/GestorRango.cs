@@ -23,7 +23,7 @@ namespace GestionProyectos.CapaNegocios.Gestores
         public CrearResponse Crear(ITengoFechaRadicacionDesdeHasta peticion)
         {
 
-            RepoHerramienta.CrearRango(TransformoFechas.ConvertirEnRango(peticion),
+            RepoHerramienta.CrearRango(peticion,
                 () => Fabrica.Ejecutar(rp =>
                 {
                     return CargarTablasRango(rp, peticion, true);
