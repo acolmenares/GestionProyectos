@@ -18,7 +18,7 @@ namespace GestionProyectos.CapaNegocios.Valores
 
         public string ConvertirEnPeriodo(DateTime? value)
         {
-            return string.Format("Q{0}", value.HasValue ? ((((value.Value.Month + 3) % 12) + 2) / 3).ToString() : "");
+            return string.Format("Q{0}", value.HasValue ? ((((value.Value.Month + 2) % 12) + 3) / 3).ToString() : "");
         }
 
         public string ConvertirEnNombreDeMes(DateTime? value)

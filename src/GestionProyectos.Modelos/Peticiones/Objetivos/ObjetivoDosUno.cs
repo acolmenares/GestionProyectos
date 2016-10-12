@@ -13,18 +13,7 @@ namespace GestionProyectos.Modelos.Peticiones.Objetivos
     {
         
     }
-
-    public class QueryObjetivoDosUnoResponse: QueryResponse<ObejtivoDosUno>
-    {
-        public Dictionary<string, Dictionary<string,Dictionary<string,List<ObejtivoDosUno>>>>  Regionales { get; set; }
-        public QueryObjetivoDosUnoResponse()
-        {
-            //var periodos = new Dictionary<string, List<ObejtivoDosUno>>();
-            //var municipios = new Dictionary<string, Dictionary<string, List<ObejtivoDosUno>>>();
-            Regionales = new Dictionary<string, Dictionary<string, Dictionary<string, List<ObejtivoDosUno>>>>();
-
-        }
-    }
+       
 
     public abstract class QueryObjetivo<T> : QueryDataDeclaracion<T>
     {
@@ -135,7 +124,7 @@ namespace GestionProyectos.Modelos.Peticiones.Objetivos
     {
         public string Regional { get; set; }
         public string Municipio { get; set; }
-       public string Nombre { get; set; }
+        public string Nombre { get; set; }
     }
 
 
